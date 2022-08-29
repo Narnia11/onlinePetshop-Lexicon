@@ -12,6 +12,10 @@ using assignment.Models;
 using Model.Model;
 using Microsoft.AspNetCore.Identity;
 using Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using assigment.Models;
+using System.Text;
 
 namespace assigment
 {
@@ -52,6 +56,24 @@ namespace assigment
 
             /*End add dependency injection*/
             services.AddSwaggerGen();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+options.TokenValidationParameters = new TokenValidationParameters
+{
+ValidateIssuer = true,
+ValidateAudience = true,
+ValidateLifetime = true,
+ValidateIssuerSigningKey = true,
+ValidIssuer = MVSJwtTokens.Issuer,
+ValidAudience = MVSJwtTokens.Audience,
+IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(MVSJwtTokens.key))
+};
+});
+
+
+
 
 
 

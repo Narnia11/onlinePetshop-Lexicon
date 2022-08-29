@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import './Slider.css';
-import slider1 from '../../media/image0.jpeg';
-import slider2 from '../../media/image1.jpeg';
+import slider1 from '../../media/bridge.jpg';
+import slider2 from '../../media/collosseum.jpg';
 
 
 

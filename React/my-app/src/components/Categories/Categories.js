@@ -16,16 +16,34 @@ export function Categories(){
     const location = useLocation();
     // Empty array in useState!
     const [data, setData] = useState([]);
-    useEffect(()=>{
-      axios.get('http://localhost:60359/api/Category/GetCategorys/').then((res)=>{
-       
-  
-       const ResponseData=res.data;
+    const accessToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhLmtpYW4zMkB5YWhvby5jb20iLCJqdGkiOiJkM2Q0NzJmNC0zN2NjLTQ2MzQtOWM2Mi1jNTAyYmQ2NjkyOWQiLCJ1bmlxdWVfbmFtZSI6ImEua2lhbjMyQHlhaG9vLmNvbSIsImV4cCI6MTY2MTY1OTQzMywiaXNzIjoiTVY1IiwiYXVkIjoiQXBpVXNlciJ9.Ny_LUIOv2bBBlGsLOitHz6t-hYCiLW-d7HOi75WFkzk";
+
+    axios.interceptors.request.use(
+      config=>{
+        config.headers.authorization=`Bearer ${accessToken}`;
+        return config;
+      },
+      error=>{
+        return Promise.reject(error);
+      }
+    )
+    try{
       
-       setData(ResponseData);
-      
-      })
-        },[])
+      useEffect(()=>{
+        axios.get('http://localhost:60359/api/Category/GetCategorys/').then((res)=>{
+         
+    
+         const ResponseData=res.data;
+        
+         setData(ResponseData);
+        
+        })
+          },[])
+
+    }catch(err){
+      setRequestError(err);
+    }
+
 
     
     return(

@@ -10,10 +10,10 @@ export class HomePage extends Component{
         return(
           <div className="">
               <Slider></Slider>
-              <h4>recent categories</h4>
+              <h4>recents categories</h4>
               <Categories></Categories>
               <Baner></Baner>
-              <h4>recent items</h4>
+              <h4>recents items</h4>
               <Items></Items>
 
           </div>

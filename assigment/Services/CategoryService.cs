@@ -22,6 +22,7 @@ namespace assignment.Models
             fileStream.CopyTo(ms);
             byte[] imageBytes = ms.ToArray();
             return Convert.ToBase64String(imageBytes);
+            fileStream.Dispose();
         }
 
         public void CreateCategory(CreateCategoryViewModel category)

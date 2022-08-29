@@ -4,6 +4,8 @@ using System.IO;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using assigment.Models;
+using assigment.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,17 +17,20 @@ using Model.ViewModels;
 namespace assignment.Controllers.MVC
 {
     [AllowAnonymous]
+
+
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private IHostingEnvironment _HostingEnviroment;
+        private UserManager<ApplicationUser> UserManager { get; }
+
 
 
         public AccountController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,  
              IHostingEnvironment hostingEnviroment)
         {
-            this.userManager = userManager;
+            this.UserManager = userManager;
             this.signInManager = signInManager;
             _HostingEnviroment = hostingEnviroment;
         }
@@ -61,7 +66,7 @@ namespace assignment.Controllers.MVC
                     Email = registerViewModel.Email,
                     PhoneNumber = registerViewModel.PhoneNumber
                 };
-                var result = await userManager.CreateAsync(user, registerViewModel.Password);
+                var result = await UserManager.CreateAsync(user, registerViewModel.Password);
                 if (result.Succeeded)
                 {
 
@@ -133,7 +138,6 @@ namespace assignment.Controllers.MVC
           await  signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
         }
-
 
 
 

@@ -29,11 +29,14 @@ namespace assignment.Models
 
         public string ConvertToBase64(string path)
         {
-            using var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             using MemoryStream ms = new MemoryStream();
             fileStream.CopyTo(ms);
             byte[] imageBytes = ms.ToArray();
             return Convert.ToBase64String(imageBytes);
+            fileStream.Dispose();
+
+
         }
 
 
